@@ -1,0 +1,381 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-pink: #ff2d95;
+  --neon-cyan: #00f0ff;
+  --neon-purple: #b026ff;
+  --neon-yellow: #f0ff00;
+  --neon-green: #39ff14;
+  --cyber-dark: #0a0a0f;
+  --cyber-darker: #050508;
+  --cyber-card: #12121a;
+  --cyber-border: #1e1e2e;
+  --space-deep: #030014;
+  --space-purple: #0f0728;
+  --space-blue: #1a0a3e;
+  --star-white: #ffffff;
+  --nebula-pink: #ff6b9d;
+  --nebula-blue: #4fc3f7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Rajdhani", sans-serif;
+  background: var(--cyber-darker);
+  min-height: 100vh;
+}
+
+/* Deep space background */
+.deep-space-bg {
+  background: 
+    radial-gradient(ellipse at 20% 80%, rgba(120, 0, 255, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(0, 150, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(75, 0, 130, 0.2) 0%, transparent 70%),
+    linear-gradient(180deg, var(--space-deep) 0%, var(--space-purple) 50%, var(--space-blue) 100%);
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Starfield effect */
+.starfield {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, white, transparent),
+    radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(1px 1px at 230px 80px, white, transparent),
+    radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 370px 50px, white, transparent),
+    radial-gradient(2px 2px at 450px 180px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 520px 90px, white, transparent),
+    radial-gradient(2px 2px at 600px 200px, white, transparent),
+    radial-gradient(1px 1px at 680px 60px, rgba(255,255,255,0.9), transparent),
+    radial-gradient(2px 2px at 750px 140px, white, transparent),
+    radial-gradient(1px 1px at 100px 200px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(2px 2px at 200px 300px, white, transparent),
+    radial-gradient(1px 1px at 350px 250px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(2px 2px at 500px 350px, white, transparent),
+    radial-gradient(1px 1px at 650px 280px, rgba(255,255,255,0.7), transparent);
+  background-size: 800px 400px;
+  animation: twinkle 8s ease-in-out infinite;
+  will-change: opacity;
+  pointer-events: none;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+/* Glass morphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Pulsing animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 
+      0 0 10px var(--nebula-blue),
+      0 0 20px var(--nebula-blue),
+      0 0 40px var(--nebula-blue);
+  }
+  50% {
+    opacity: 0.8;
+    text-shadow: 
+      0 0 20px var(--nebula-blue),
+      0 0 40px var(--nebula-blue),
+      0 0 60px var(--nebula-blue),
+      0 0 80px var(--nebula-pink);
+  }
+}
+
+.pulse-text {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Space button */
+.space-button {
+  @apply relative overflow-hidden font-bold uppercase tracking-wider;
+  @apply px-8 py-4 rounded-full;
+  background: linear-gradient(135deg, rgba(79, 195, 247, 0.3) 0%, rgba(255, 107, 157, 0.3) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.space-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--nebula-blue) 0%, var(--nebula-pink) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border-radius: inherit;
+}
+
+.space-button:hover::before {
+  opacity: 0.3;
+}
+
+.space-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 10px 40px rgba(79, 195, 247, 0.3),
+    0 0 20px rgba(255, 107, 157, 0.2);
+}
+
+.space-button span {
+  position: relative;
+  z-index: 1;
+}
+
+/* Space input */
+.space-input {
+  @apply w-full px-6 py-4 rounded-2xl;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1.125rem;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.space-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+  opacity: 1;
+}
+
+.space-input:focus {
+  outline: none;
+  border-color: var(--nebula-blue);
+  box-shadow: 
+    0 0 20px rgba(79, 195, 247, 0.2),
+    inset 0 0 20px rgba(79, 195, 247, 0.05);
+}
+
+/* Fix for input with icon - ensure proper padding */
+.space-input.pl-12 {
+  padding-left: 3rem !important;
+}
+
+/* Cyberpunk grid background */
+.cyber-grid {
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+/* Neon text glow */
+.neon-text {
+  text-shadow: 
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}
+
+.neon-text-cyan {
+  color: var(--neon-cyan);
+  text-shadow: 
+    0 0 5px var(--neon-cyan),
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan);
+}
+
+.neon-text-pink {
+  color: var(--neon-pink);
+  text-shadow: 
+    0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
+}
+
+/* Neon border glow */
+.neon-border {
+  box-shadow: 
+    0 0 5px var(--neon-cyan),
+    0 0 10px var(--neon-cyan),
+    inset 0 0 5px rgba(0, 240, 255, 0.1);
+  border: 1px solid var(--neon-cyan);
+}
+
+.neon-border-pink {
+  box-shadow: 
+    0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    inset 0 0 5px rgba(255, 45, 149, 0.1);
+  border: 1px solid var(--neon-pink);
+}
+
+/* Button styles */
+.cyber-button {
+  @apply relative overflow-hidden font-cyber font-bold uppercase tracking-wider;
+  @apply px-8 py-4 bg-transparent;
+  @apply transition-all duration-300;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+}
+
+.cyber-button::before {
+  content: "";
+  @apply absolute inset-0 bg-neon-cyan/10;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.cyber-button:hover::before {
+  transform: translateX(0);
+}
+
+.cyber-button:hover {
+  box-shadow: 
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan);
+}
+
+.cyber-button-pink {
+  border-color: var(--neon-pink);
+  color: var(--neon-pink);
+}
+
+.cyber-button-pink::before {
+  @apply bg-neon-pink/10;
+}
+
+.cyber-button-pink:hover {
+  box-shadow: 
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
+}
+
+/* Card styles */
+.cyber-card {
+  @apply bg-cyber-card/80 backdrop-blur-sm rounded-lg;
+  border: 1px solid var(--cyber-border);
+}
+
+/* Input styles */
+.cyber-input {
+  @apply w-full px-4 py-3 bg-cyber-dark/50 rounded-lg;
+  @apply text-white placeholder-gray-500;
+  @apply transition-all duration-300;
+  @apply focus:outline-none;
+  border: 1px solid var(--cyber-border);
+}
+
+.cyber-input:focus {
+  border-color: var(--neon-cyan);
+  box-shadow: 
+    0 0 5px var(--neon-cyan),
+    0 0 10px rgba(0, 240, 255, 0.3);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cyber-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cyber-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-cyan);
+}
+
+/* Animations */
+@keyframes scanline {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
+.scanline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0, 240, 255, 0.2),
+    transparent
+  );
+  animation: scanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+
+/* Slot machine roller */
+.slot-container {
+  @apply overflow-hidden relative;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 20%,
+    black 80%,
+    transparent 100%
+  );
+}
+
+/* Participants auto-scroll animation */
+@keyframes scroll-up {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+.participants-scroll {
+  animation: scroll-up 180s linear infinite;
+  will-change: transform;
+}
+
+.participants-scroll:hover {
+  animation-play-state: paused;
+}
+
