@@ -27,6 +27,99 @@ npm run dev
 
 访问 [http://localhost:3000](http://localhost:3000) 查看应用。
 
+### 🌐 自定义公网地址（IPv4/IPv6）
+
+在局域网或公网环境中使用时，需要配置自定义 IP 地址，以便其他设备扫码访问。
+
+#### 方法一：启动时指定 Host
+
+```bash
+# 监听所有网络接口（推荐）
+npm run dev -- -H 0.0.0.0
+
+# 或指定具体 IPv4 地址
+npm run dev -- -H 192.168.1.100
+
+# 或指定 IPv6 地址
+npm run dev -- -H ::
+```
+
+#### 方法二：修改 package.json
+
+```json
+{
+  "scripts": {
+    "dev": "next dev -H 0.0.0.0 -p 3000"
+  }
+}
+```
+
+#### 方法三：创建 .env.local 文件
+
+```bash
+# .env.local
+HOSTNAME=0.0.0.0
+PORT=3000
+```
+
+#### 配置二维码显示地址
+
+管理后台生成的二维码默认使用 `window.location.origin`。如需自定义二维码中的地址，可以：
+
+1. **使用环境变量**（推荐）
+
+在 `.env.local` 中添加：
+
+```bash
+# IPv4 公网地址
+NEXT_PUBLIC_BASE_URL=http://你的公网IP:3000
+
+# 或 IPv6 地址（注意方括号）
+NEXT_PUBLIC_BASE_URL=http://[2001:db8::1]:3000
+
+# 或使用域名
+NEXT_PUBLIC_BASE_URL=https://lottery.example.com
+```
+
+2. **查看本机 IP 地址**
+
+```bash
+# Windows
+ipconfig
+
+# macOS / Linux
+ifconfig
+# 或
+ip addr
+```
+
+#### 常见场景配置
+
+| 场景 | 配置 |
+|------|------|
+| 本地开发 | `localhost:3000` |
+| 局域网访问 | `192.168.x.x:3000` |
+| IPv6 局域网 | `[fe80::xxx]:3000` |
+| 公网 IPv4 | `公网IP:3000`（需端口映射） |
+| 公网 IPv6 | `[IPv6地址]:3000` |
+| 域名访问 | `https://your-domain.com` |
+
+#### 防火墙设置
+
+确保防火墙允许 3000 端口的入站连接：
+
+```bash
+# Windows PowerShell (管理员)
+New-NetFirewallRule -DisplayName "LuckyFlow" -Direction Inbound -Port 3000 -Protocol TCP -Action Allow
+
+# Linux (ufw)
+sudo ufw allow 3000/tcp
+
+# Linux (firewalld)
+sudo firewall-cmd --add-port=3000/tcp --permanent
+sudo firewall-cmd --reload
+```
+
 ## 📁 项目结构
 
 ```
